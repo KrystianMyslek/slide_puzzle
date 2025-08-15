@@ -1,14 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, Fragment } from 'react'
 import './App.css'
 
+import Board from './Board';
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [emptySpace, setEmptySpace] = useState([0,0]);
+
+
+
+  function changeEmptySpace(newEmptySpace) {
+    setEmptySpace(newEmptySpace);
+  }
+
+  function generateBoard(x, y) {
+    var size = {x, y}
+    var emptySpaceHandle = {
+      emptySpace,
+      "func": changeEmptySpace
+    }
+    return <Board size={size} emptySpaceHandle={emptySpaceHandle} />
+  }
+  
+  const board = generateBoard(4,3);
 
   return (
     <>
-      SLIDE PUZZLE
+      <div className='title'>
+        SLIDE PUZZLE
+      </div>
+      {board}
     </>
   )
 }
