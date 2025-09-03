@@ -1,7 +1,6 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  text-align: center;
 }
 
 .card {
@@ -15,8 +14,10 @@
 .title {
   font-size: 40px;
   letter-spacing: 20px;
-  margin-top: 20px;;
-  margin-bottom: 40px;;
+  padding-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .config {
@@ -42,16 +43,13 @@
 }
 
 .board {
+  margin: auto;
   border-spacing: 4px;
-  padding: 0;
-  height: 100%;
-  display: flex;
 }
 
 .board td {
   height: 200px;
   width: 200px;
-  background-color: red;
   padding: 0;
   margin: 0;
 }
@@ -68,7 +66,7 @@
 }
 
 .board div.empty {
-  background-color: red;
+  background-color: white;
 }
 
 .board div.movable {
