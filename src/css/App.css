@@ -1,17 +1,34 @@
 #root {
-  max-width: 1280px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.card {
-  padding: 2em;
+button::first-letter {
+  text-transform: uppercase;
 }
 
-.read-the-docs {
-  color: #888;
+button {
+  font-size: 20px;
+  background-color: lightskyblue;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  border: 0;
+  box-shadow: 5px 5px lightgray;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: opacity(.8);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: lightgray;
 }
 
 .title {
+  text-transform: uppercase;
   font-size: 40px;
   letter-spacing: 20px;
   padding-left: 20px;
@@ -23,56 +40,82 @@
 .config {
   display: flex;
   flex-direction: column;
+  margin: auto;
 }
 
 .config > div {
-  margin: 20px 0;
+  margin: 40px 0;
   display: flex;
   justify-content: space-around;
-  align-items: center;
 }
 
-.config button {
-  padding: 4px 10px;
-  font-size: 20px;;
+.config > div:first-child {
+  border: solid 1px;
 }
 
-.config button.start_game {
-  flex: 0 0 100%;
-  font-size: 20px;;
+.config .set_board {
+  width: 100%;
+  display: inline-flex;
 }
 
-.board {
-  margin: auto;
-  border-spacing: 4px;
+.config .set_board > *:first-child {
+  text-align: center;
+  flex-grow: 1;
 }
 
-.board td {
-  height: 200px;
-  width: 200px;
+.config .set_board > * {
+  border-radius: 0;
+  box-shadow: none;
+  padding: 10px 20px;
+  min-width: 20px;
+  text-align: center;
+}
+
+#board {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#board td {
   padding: 0;
   margin: 0;
+  border: solid 1px white;
 }
 
-.board div {
+#board div {
   height: 100%;
-  width: 100%;
-  background-color: green;
+  background-color: #32a832;
   color: white;
-  font-size: 48px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.board div.empty {
+#board div.empty {
   background-color: white;
 }
 
-.board div.movable {
+#board div.movable {
   cursor: pointer;
 }
 
-.board div.movable:hover {
+#board div.movable:hover {
   filter: opacity(.8);
+}
+
+.win {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.win .congrats {
+  font-size: 60px;
+  padding-bottom: 20px;
+}
+
+.win .score {
+  font-size: 30px;
+  padding-bottom: 20px;
 }

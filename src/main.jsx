@@ -9,7 +9,5 @@ Array.prototype.swapItems = function(a, b){
 }
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <App />
-  </StrictMode>,
 )

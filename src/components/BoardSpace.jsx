@@ -21,6 +21,7 @@ export default function BoardSpace(props) {
   var cols = new Array(props.size.y)
     .fill(0)
     .map((element, y_pos) => {
+      var key = props.x_pos + "_" + y_pos
       var puzzle_num = props.x_pos * props.size.y + y_pos
       var puzzle;
 
@@ -29,8 +30,9 @@ export default function BoardSpace(props) {
       
       var puzzleInfo = props.boardHandle.puzzlePlaces[puzzle_num];
 
+
       if (canMovwe) {
-        puzzle = <td onClick={() => {
+        puzzle = <td key={key} onClick={() => {
           var empty_space_pos = props.boardHandle.emptySpace[0] * props.size.y + props.boardHandle.emptySpace[1]
           var newPuzzlePlaces = props.boardHandle.puzzlePlaces.swapItems(empty_space_pos, puzzle_num);
 
@@ -40,7 +42,7 @@ export default function BoardSpace(props) {
           <Puzzle empty={empty} movable={true} puzzleInfo={puzzleInfo} />
         </td>
       } else {
-        puzzle = <td>
+        puzzle = <td key={key}>
           <Puzzle empty={empty} puzzle={puzzle} puzzleInfo={puzzleInfo} />
         </td>
       }

@@ -83,36 +83,40 @@ export default function Set(props) {
         <>
             <div className='config'>
                 <div>
-                    <span>ILOŚĆ WIERSZY</span>
-                    <button id="set_board_x_size_button_minus" onClick={() => {
-                        bs.decrementXSize()
-                    }}>
-                        -
-                    </button>
-                    <span>{bsh.boardXSize}</span>
-                    <button id="set_board_x_size_button_plus" onClick={() => {
-                        bs.incrementXSize()
-                    }}>
-                        +
-                    </button>
-                    <span>ILOŚĆ KOLUMN</span>
-                    <button id="set_board_y_size_button_minus" onClick={() => {
-                        bs.decrementYSize()
-                    }}>
-                        -
-                    </button>
-                    <span>{bsh.boardYSize}</span>
-                    <button id="set_board_y_size_button_plus" onClick={() => {
-                        bs.incrementYSize()
-                    }}>
-                        +
-                    </button>
+                    <div className='set_board'>
+                        <span>ILOŚĆ WIERSZY</span>
+                        <button id="set_board_x_size_button_minus" onClick={() => {
+                            bs.decrementXSize()
+                        }}>
+                            -
+                        </button>
+                        <span>{bsh.boardXSize}</span>
+                        <button id="set_board_x_size_button_plus" onClick={() => {
+                            bs.incrementXSize()
+                        }}>
+                            +
+                        </button>
+                    </div>
+                    <div className='set_board'>
+                        <span>ILOŚĆ KOLUMN</span>
+                        <button id="set_board_y_size_button_minus" onClick={() => {
+                            bs.decrementYSize()
+                        }}>
+                            -
+                        </button>
+                        <span>{bsh.boardYSize}</span>
+                        <button id="set_board_y_size_button_plus" onClick={() => {
+                            bs.incrementYSize()
+                        }}>
+                            +
+                        </button>
+                    </div>
                 </div>
                 <div>
                     <button className="start_game" onClick={() => {
                         bsh.setGameStatus(Cons.GAME_STATUS_ROLL)
                     }}>
-                        START GAME
+                        rozpocznij grę
                     </button>
                 </div>
             </div>

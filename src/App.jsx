@@ -1,4 +1,5 @@
-import { useState, Fragment } from 'react'
+import { useState, useRef, useEffect, Fragment } from 'react'
+import { useWindowSize } from 'react-use'
 import './css/App.css'
 
 import Cons from './Cons';
@@ -8,16 +9,24 @@ import Win from './components/Win';
 
 function App() {
 
-  var defaultBoardXSize = 4;
-  var defaultBoardYSize = 2;
+  const { width, height } = useWindowSize()
+
+  var defaultBoardXSize = 3;
+  var defaultBoardYSize = 3;
 
   const [gameStatus, setGameStatus] = useState(Cons.GAME_STATUS_SET);
 
   const [boardXSize, setBoardXSize] = useState(defaultBoardXSize);
   const [boardYSize, setBoardYSize] = useState(defaultBoardYSize);
   
-  const [emptySpace, setEmptySpace] = useState([boardXSize-1,boardYSize-1]);
+  const movesCount = useRef(0);
+  const [emptySpace, setEmptySpace] = useState([boardXSize-1, boardYSize-1]);
   const [puzzlePlaces, setPuzzlePlaces] = useState();
+
+  function reset() {
+    movesCount.current = 0
+    setGameStatus(Cons.GAME_STATUS_SET)
+  }
 
   function generateSet() {
     var boardSizeHandle = {
@@ -49,7 +58,7 @@ function App() {
   }
 
   function generateWin() {
-    return <Win />
+    return <Win movesCount={movesCount} reset={reset} />
   }
 
   function checkIfGameWon(_puzzlePlaces) {
@@ -142,38 +151,64 @@ function App() {
       }
     }
     
+    setPuzzlePlaces(newPuzzlePlaces)
     setGameStatus(Cons.GAME_STATUS_PLAY)
-    setPuzzlePlaces(newPuzzlePlaces);
   }
 
   var app;
   switch (gameStatus) {
     case Cons.GAME_STATUS_SET:
-      app = generateSet();
+      app = generateSet()
       
       break;
     case Cons.GAME_STATUS_ROLL:
-      rollPuzzlePlaces();
+      rollPuzzlePlaces()
       
       break;
     case Cons.GAME_STATUS_PLAY:
-      checkIfGameWon(puzzlePlaces);
-      
-      app = generateBoard(boardXSize, boardYSize);
-      
+      if (!checkIfGameWon(puzzlePlaces)) {
+        movesCount.current = movesCount.current + 1;
+        
+        app = generateBoard(boardXSize, boardYSize)
+      }
+
       break;
     case Cons.GAME_STATUS_WIN:
-      app = generateWin();
+      app = generateWin()
 
       break;
     default:
       break;
   }
 
+  useEffect(() => {
+    document.getElementById('root').style.height = height + "px";
+    document.getElementById('root').style.width = width + "px";
+
+    if (gameStatus == Cons.GAME_STATUS_PLAY) {
+      var puzzles = document.getElementById('board').getElementsByTagName('td');
+      var puzzle_height = (height - 200) / boardXSize
+
+      for (const puzzle of puzzles) {
+        puzzle.style.height = puzzle_height + "px"
+      }
+
+      var puzzleHeight = document.getElementsByTagName('td').item(0).clientHeight;
+      if (puzzleHeight > 100) {
+        puzzleHeight = 60
+      } else {
+        puzzleHeight = puzzleHeight - 40
+      }
+
+      document.getElementById('board').style.fontSize = puzzleHeight + "px";
+    }
+
+  }, [gameStatus]); 
+
   return (
     <>
       <div className='title'>
-        SLIDE PUZZLE
+        slide puzzle
       </div>
       {app}
     </>

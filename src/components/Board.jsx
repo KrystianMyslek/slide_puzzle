@@ -6,8 +6,8 @@ export default function Board(props) {
     .fill(0)
     .map((element, x_pos) => {
 
-      return <BoardSpace size={props.size} x_pos={x_pos} boardHandle={props.boardHandle} />
+      return <BoardSpace key={x_pos} size={props.size} x_pos={x_pos} boardHandle={props.boardHandle} />
     })
 
-  return <table className='board'><tbody>{rows}</tbody></table>
+  return <table id='board'><tbody>{rows}</tbody></table>
 }
