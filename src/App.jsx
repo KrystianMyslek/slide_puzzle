@@ -22,12 +22,18 @@ function App() {
   const movesCount = useRef(0);
   const [emptySpace, setEmptySpace] = useState([boardXSize-1, boardYSize-1]);
   const [puzzlePlaces, setPuzzlePlaces] = useState();
-
-  function reset() {
-    movesCount.current = 0
-    setGameStatus(Cons.GAME_STATUS_SET)
-  }
-
+  
+    function reset() {
+      movesCount.current = 0
+      setGameStatus(Cons.GAME_STATUS_SET)
+    }
+  
+    function reroll() {
+      movesCount.current = 0
+      setEmptySpace([boardXSize-1, boardYSize-1])
+      setGameStatus(Cons.GAME_STATUS_ROLL)
+    }
+  
   function generateSet() {
     var boardSizeHandle = {
       emptySpace,
@@ -54,7 +60,7 @@ function App() {
       setPuzzlePlaces
     }
 
-    return <Board size={size} boardHandle={boardHandle} />
+    return <Board size={size} boardHandle={boardHandle} reset={reset} reroll={reroll} />
   }
 
   function generateWin() {
@@ -155,6 +161,24 @@ function App() {
     setGameStatus(Cons.GAME_STATUS_PLAY)
   }
 
+  function setPuzzlesSize() {
+    var puzzles = document.getElementById('board').getElementsByTagName('td');
+    var puzzle_height = (height - 245) / boardXSize
+
+    for (const puzzle of puzzles) {
+      puzzle.style.height = puzzle_height + "px"
+    }
+
+    var puzzleHeight = document.getElementsByTagName('td').item(0).clientHeight;
+    if (puzzleHeight > 100) {
+      puzzleHeight = 60
+    } else {
+      puzzleHeight = puzzleHeight - 40
+    }
+
+    document.getElementById('board').style.fontSize = puzzleHeight + "px";
+  }
+
   var app;
   switch (gameStatus) {
     case Cons.GAME_STATUS_SET:
@@ -182,27 +206,9 @@ function App() {
   }
 
   useEffect(() => {
-    document.getElementById('root').style.height = height + "px";
-    document.getElementById('root').style.width = width + "px";
-
     if (gameStatus == Cons.GAME_STATUS_PLAY) {
-      var puzzles = document.getElementById('board').getElementsByTagName('td');
-      var puzzle_height = (height - 200) / boardXSize
-
-      for (const puzzle of puzzles) {
-        puzzle.style.height = puzzle_height + "px"
-      }
-
-      var puzzleHeight = document.getElementsByTagName('td').item(0).clientHeight;
-      if (puzzleHeight > 100) {
-        puzzleHeight = 60
-      } else {
-        puzzleHeight = puzzleHeight - 40
-      }
-
-      document.getElementById('board').style.fontSize = puzzleHeight + "px";
+      setPuzzlesSize()
     }
-
   }, [gameStatus]); 
 
   return (
