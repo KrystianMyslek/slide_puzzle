@@ -45,24 +45,20 @@ button:disabled {
 }
 
 .config > div {
-  margin: 40px 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-.config > div:first-child {
-  border: solid 1px;
+  margin: 40px 20px;
+  text-align: center;
 }
 
 .config .set_board {
+  border: solid 1px;
   width: 100%;
+  margin-top: 20px;
   display: inline-flex;
   height: 44px;
   white-space: nowrap;
 }
 
 .config .set_board > *:first-child {
-  text-align: center;
   flex-grow: 1;
 }
 
@@ -96,7 +92,8 @@ button:disabled {
 }
 
 #board div.empty {
-  background-color: white;
+  color: transparent;
+  background-color: transparent;
 }
 
 #board div.movable {
@@ -107,12 +104,17 @@ button:disabled {
   filter: opacity(.8);
 }
 
+#board div.movable:active {
+  filter: opacity(.6);
+}
+
 .game_buttons {
   margin-top: 10px;
+  text-align: center;
 }
 
 .game_buttons button {
-  margin-right: 20px;;
+  margin: 10px;
 }
 
 .win {

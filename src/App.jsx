@@ -163,7 +163,7 @@ function App() {
 
   function setPuzzlesSize() {
     var puzzles = document.getElementById('board').getElementsByTagName('td');
-    var puzzle_height = (height - 245) / boardXSize
+    var puzzle_height = (height - 300) / boardXSize
 
     for (const puzzle of puzzles) {
       puzzle.style.height = puzzle_height + "px"
